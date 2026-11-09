@@ -8,6 +8,7 @@ from sqlalchemy.ext.asyncio import (
 from app.database.session import get_db
 from app.main import app
 
+
 @pytest.fixture
 def client():
     test_engine = create_async_engine(
@@ -29,7 +30,7 @@ def client():
     app.dependency_overrides.clear()
 
 
-def test_ready_endpoint(client):
+def test_ready_endpoint(client: TestClient):
     response = client.get("/api/v1/ready")
     assert response.status_code == 200
     data = response.json()

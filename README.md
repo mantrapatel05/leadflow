@@ -92,6 +92,49 @@ Do not commit this file.
 - `/api/v1/health` — API liveness
 - `/api/v1/ready` — database readiness
 
+### Lead Management API
+
+LeadFlow supports creating, retrieving, and listing leads.
+
+#### Create a lead
+
+POST `/api/v1/leads`
+
+Example request:
+
+```json
+{
+  "meta_lead_id": "meta-demo-001",
+  "page_id": "page-demo",
+  "form_id": "form-demo",
+  "ad_id": "ad-demo",
+  "full_name": "John Doe",
+  "email": "john@example.com",
+  "phone_number": "+911234567890"
+}
+```
+
+#### List leads
+
+GET `/api/v1/leads?page=1&page_size=20`
+
+#### Retrieve a lead
+
+GET `/api/v1/leads/{lead_id}`
+
+#### Idempotency
+
+The Meta lead ID is unique. Repeated ingestion of the same Meta lead returns the existing record instead of creating a duplicate.
+
+#### Database migrations
+
+Run from `backend/`:
+
+```
+alembic revision --autogenerate -m "describe schema change"
+alembic upgrade head
+```
+
 ## Local Backend Setup
 
 From the repository root:
@@ -125,4 +168,4 @@ python -m pytest -v
 
 ## Current Status
 
-Milestone 2: PostgreSQL + SQLAlchemy database infrastructure with Docker Compose.
+Milestone 3: Lead Management API.

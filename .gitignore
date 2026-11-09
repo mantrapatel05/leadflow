@@ -21,3 +21,8 @@ build/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/

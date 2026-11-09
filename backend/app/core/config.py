@@ -21,6 +21,9 @@ class Settings(BaseSettings):
     db_pool_recycle: int = 1800
     meta_verify_token: str = ""
     meta_app_secret: str = ""
+    meta_page_access_token: str = ""
+    meta_graph_api_version: str = "v27.0"
+    meta_api_timeout: float = 15.0
 
     model_config = SettingsConfigDict(
         env_file=".env",

@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import Any
-from sqlalchemy import DateTime, Index, JSON, String, UniqueConstraint, func
+from sqlalchemy import DateTime, Index, Integer, JSON, String, UniqueConstraint, func
 from sqlalchemy.orm import Mapped, mapped_column
 from app.database.base import Base
 
@@ -24,6 +24,15 @@ class WebhookEvent(Base):
         String(30),
         nullable=False,
         default="pending",
+    )
+    retry_count: Mapped[int] = mapped_column(
+        Integer,
+        nullable=False,
+        default=0,
+        server_default="0",
+    )
+    last_attempt_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True),
     )
     received_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),

@@ -168,4 +168,31 @@ python -m pytest -v
 
 ## Current Status
 
-Milestone 3: Lead Management API.
+Milestone 4: Meta Webhook Ingestion.
+
+## Meta Lead Processing
+
+LeadFlow receives Meta Lead Ads webhook notifications and stores them
+in a persistent PostgreSQL inbox.
+
+The processing pipeline:
+
+1. Verify the webhook signature.
+2. Persist the lead notification.
+3. Retrieve complete lead details through Meta Graph API.
+4. Normalize Meta's field_data response.
+5. Store the lead in PostgreSQL.
+6. Mark the webhook event as processed.
+
+Webhook events are idempotent using a unique event key.
+Lead records are idempotent using the Meta lead ID.
+
+### Process pending webhook events
+
+From the backend directory:
+
+```bash
+python -m app.workers.process_pending_webhooks
+```
+
+The current processor handles up to 20 pending events per execution.

@@ -19,6 +19,8 @@ class Settings(BaseSettings):
     db_max_overflow: int = 10
     db_pool_timeout: int = 30
     db_pool_recycle: int = 1800
+    meta_verify_token: str = ""
+    meta_app_secret: str = ""
 
     model_config = SettingsConfigDict(
         env_file=".env",

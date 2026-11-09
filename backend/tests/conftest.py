@@ -7,12 +7,13 @@ from sqlalchemy.ext.asyncio import (
 )
 from app.database.base import Base
 from app.database.session import get_db
-from app.main import app
-from app.models.lead import Lead
+import app.models
 
 
 @pytest.fixture
 def client(tmp_path):
+    from app.main import app
+
     database_path = tmp_path / "test_leadflow.db"
     database_url = f"sqlite+aiosqlite:///{database_path.as_posix()}"
 
